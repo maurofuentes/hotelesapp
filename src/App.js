@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Hero from './components/Hero';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
@@ -15,12 +14,25 @@ function App() {
     rooms : undefined
   }
 
-  const [ filter , setFilters ] = useState(filters); 
+  const [ filter , setFilters ] = useState(filters);
+
+  console.log(filter.dateFrom.toLocaleDateString());
 
   return (
-    <div className="App">
-      <Hero/>
-      
+    <div>
+      <Hero
+        desde={filter.dateFrom.toLocaleDateString()}
+      />
+      <h1
+        className="title is-1"
+      >
+        <i
+          className="fas fa-home"
+        >
+        </i>
+          Hola!
+      </h1>
+       
     </div>
   );
 }
