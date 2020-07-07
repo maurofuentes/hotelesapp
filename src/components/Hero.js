@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Hero(props){
 
-    const { desde }= props;
+    const { from, to, conditionalfilters}= props;
 
     return(
        <section className="hero is-primary">
@@ -16,7 +16,7 @@ export default function Hero(props){
                     <h2 
                         className="subtitle"
                     >
-                        desde el <strong> {props.desde} </strong> hasta el <strong> dddd, DD  de mmmm de AAAA​</strong>
+                        desde el <strong> {from} </strong> hasta el <strong> {to}  {conditionalfilters} </strong>
                     </h2>
                 </div>
            </div>
