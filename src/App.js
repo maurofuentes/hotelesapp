@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import Hero from './components/Hero';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
-import { useState } from "react";
+import { useState } from 'react';
+import { data } from './components/data';
 
 function App() {
 
@@ -13,6 +14,14 @@ function App() {
     price : undefined,
     rooms : undefined
   }
+
+  const initialValuesFilter = {
+    dateFrom: data.today,
+    dateTo: new Date( data.today.valueOf() + 86400000 ),
+    country: undefined,
+    price: undefined,
+    rooms: undefined
+} ;
 
   const [ filter , setFilters ] = useState(filters);
 
