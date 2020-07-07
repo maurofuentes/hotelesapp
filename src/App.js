@@ -28,7 +28,7 @@ function App() {
       day: 'numeric'
     };
 
-    return filter.dateFrom.toLocaleDateString('es-MX', options);
+    return filter.dateFrom.toLocaleDateString('es-ES', options);
 
   }
 
@@ -58,6 +58,10 @@ function App() {
     (initialValuesFilter.rooms !== undefined) ? rooms = ` de hasta ${initialValuesFilter.rooms} habitaciones` : rooms = "";
     
     return country + price + rooms;
+  }
+
+  const onChangeDate = () => {
+
   }
  
   return (
