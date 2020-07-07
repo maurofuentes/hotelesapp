@@ -4,8 +4,7 @@ import Hero from './components/Hero';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import { useState } from 'react';
 import { data } from './data';
-import DateFilter from './components/DateFilter';
-import OptionsFilter from './components/OptionsFilter';
+import FilterNav from './components/FilterNav';
 
 function App() {
 
@@ -68,35 +67,9 @@ function App() {
         to={dateToFormat()}
         conditionalfilters={handleShowConditionalFilters()}
       />
-      <div className="has-background-info">
-        <div className="container columns is-desktop">
-          <div className="column">
-            <DateFilter
-              icon="fas fa-sign-in-alt"
-            />  
-          </div>
-          <div className="column">
-            <DateFilter
-              icon="fas fa-sign-out-alt"
-            />
-          </div>
-          <div className="column">
-            <OptionsFilter
-              icon="fas fa-globe"
-            />
-          </div>
-          <div className="column">
-            <OptionsFilter
-              icon="fas fa-credit-card"
-            />
-          </div>
-          <div className="column">
-            <OptionsFilter
-              icon="fas fa-bed"
-            />
-          </div>
-        </div>
-      </div>
+      <FilterNav
+      
+      />
     </div>
   );
 }
