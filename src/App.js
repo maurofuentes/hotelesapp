@@ -16,9 +16,20 @@ function App() {
     rooms: 3
 } ;
 
-  let [ filter , setFilters ] = useState(initialValuesFilter);
+  const [ filter , setFilters ] = useState(initialValuesFilter);
 
-  // da formato natural a initialValuesFilter.dateFrom
+  
+
+  const dateFromFilter = ()=> {
+    
+    const newDateFormat = filter.dateFrom.toISOString();
+
+    return newDateFormat
+
+  }
+
+  dateFromFilter();
+  // da formato natural a initialValuesFilter.dateFrom para mostrar en Hero
   const dateFromFormat = ()=>{
 
     let options = {
@@ -28,11 +39,11 @@ function App() {
       day: 'numeric'
     };
     
-    return filter.dateFrom.toLocaleDateString('es-ES', options);
+    return filter.dateFrom.toLocaleDateString('es-AR', options);
 
   }
 
-  // da formato natural a initialValuesFilter.dateTo
+  // da formato natural a initialValuesFilter.dateTo para mostrar en Hero
   const dateToFormat = ()=>{
 
     let options = {
@@ -42,7 +53,7 @@ function App() {
       day: 'numeric'
     };
 
-    return filter.dateTo.toLocaleDateString('es-ES', options);
+    return filter.dateTo.toLocaleDateString('es-AR', options);
 
   }
 
@@ -60,13 +71,17 @@ function App() {
     return country + price + rooms;
   }
 
+  const onChangeDateHero = (e)=> {
+    const newDateFrom = e.target.value;
+    setFilters({
+      ...filter,
+      dateFrom : newDateFrom
+    }); 
+  }
+
   //metodo para manejar el DateFilter
   const onChangeDateFrom = (e) => {
-    let selectedDate = e.target.value;
-
-    // const dateFrom = filter.dateFrom.getTime();
-
-    // const dateTo = filter.dateTo.getTime();    
+    let selectedDate = e.target.value;  
     
     const dateFormat = selectedDate.replace(/-/gi,',');
     
@@ -80,6 +95,20 @@ function App() {
     
   }
  
+  const onChangeDateTo = (e) => {
+    let selectedDate = e.target.value;  
+    
+    const dateFormat = selectedDate.replace(/-/gi,',');
+    
+    
+    const newDateTo = new Date(dateFormat);
+    
+    setFilters({
+      ...filter,
+      dateTo : newDateTo
+    }); 
+    
+  }
   
   return (
     <div>
@@ -88,8 +117,9 @@ function App() {
         to={dateToFormat()}
         conditionalfilters={handleShowConditionalFilters()}
       />
-      <FilterNav
-        onChangeDate={onChangeDateFrom}
+      <FilterNav        
+        onChangeDateFrom={ onChangeDateFrom }
+        onChangeDateTo = { onChangeDateTo }
       />
     </div>
   );

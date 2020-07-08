@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function Hero(props){
+export default function Hero({ from, to, conditionalfilters}){
 
-    const { from, to, conditionalfilters}= props;
+    
 
     return(
        <section className="hero is-primary">

@@ -1,12 +1,17 @@
 import React from 'react';
 
-export default function DateFilter (props) {
+export default function DateFilter ( { icon, onChangeDate } ) {
 
-    const { icon, onChangeDateFrom} = props;
+    
     return (
         <div className="field">
             <div className="control has-icons-left">
-                <input className="input" type="date" onChange={onChangeDateFrom}/>
+                <input 
+                    className="input"
+                    type="date"
+                    onChange={onChangeDate}
+                    
+                />
                 <span className="icon is-small is-left">
                     <i className={icon}/>
                 </span>
