@@ -2,14 +2,15 @@ import React from 'react';
 import DateFilter  from '../components/DateFilter';
 import OptionsFilter from '../components/OptionsFilter';
 
-export default function FilterNav (){
-
+export default function FilterNav (props){
+    const { onChangeDate } = props;
     return (
         <div className="has-background-info">
         <div className="container columns is-desktop">
           <div className="column">
             <DateFilter
               icon="fas fa-sign-in-alt"
+              onChangeDateFrom={onChangeDate}
             />  
           </div>
           <div className="column">

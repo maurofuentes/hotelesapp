@@ -16,7 +16,7 @@ function App() {
     rooms: 3
 } ;
 
-  const [ filter , setFilters ] = useState(initialValuesFilter);
+  let [ filter , setFilters ] = useState(initialValuesFilter);
 
   // da formato natural a initialValuesFilter.dateFrom
   const dateFromFormat = ()=>{
@@ -27,7 +27,7 @@ function App() {
       month: 'long',
       day: 'numeric'
     };
-
+    
     return filter.dateFrom.toLocaleDateString('es-ES', options);
 
   }
@@ -60,10 +60,27 @@ function App() {
     return country + price + rooms;
   }
 
-  const onChangeDate = () => {
+  //metodo para manejar el DateFilter
+  const onChangeDateFrom = (e) => {
+    let selectedDate = e.target.value;
 
+    // const dateFrom = filter.dateFrom.getTime();
+
+    // const dateTo = filter.dateTo.getTime();    
+    
+    const dateFormat = selectedDate.replace(/-/gi,',');
+    
+    
+    const newDateFrom = new Date(dateFormat);
+    
+    setFilters({
+      ...filter,
+      dateFrom : newDateFrom
+    }); 
+    
   }
  
+  
   return (
     <div>
       <Hero
@@ -72,7 +89,7 @@ function App() {
         conditionalfilters={handleShowConditionalFilters()}
       />
       <FilterNav
-      
+        onChangeDate={onChangeDateFrom}
       />
     </div>
   );
