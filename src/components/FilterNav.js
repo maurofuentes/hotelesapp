@@ -26,7 +26,7 @@ export default function FilterNav ( { onChangeDateFrom, onChangeDateTo }){
           </div>
           <div className="column">
             <OptionsFilter
-              icon="fas fa-credit-card"
+              icon="fas fa-dollar-sign"
             />
           </div>
           <div className="column">
