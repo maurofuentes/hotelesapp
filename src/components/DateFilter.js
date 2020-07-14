@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function DateFilter ( { icon, onChangeDate } ) {
+export default function DateFilter ( { icon, onChangeDate, onChange } ) {
 
     
     return (
@@ -10,7 +10,7 @@ export default function DateFilter ( { icon, onChangeDate } ) {
                     className="input"
                     type="date"
                     onChange={onChangeDate}
-                    
+                    value={onChange}
                 />
                 <span className="icon is-small is-left">
                     <i className={icon}/>

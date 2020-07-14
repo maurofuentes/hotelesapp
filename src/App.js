@@ -22,9 +22,9 @@ function App() {
 
   const dateFromFilter = ()=> {
     
-    const newDateFormat = filter.dateFrom.toISOString();
+    const newDateFormat = filter.dateFrom.toISOString().split('T')[0];
 
-    return newDateFormat
+    return newDateFormat;
 
   }
 
@@ -120,6 +120,7 @@ function App() {
       <FilterNav        
         onChangeDateFrom={ onChangeDateFrom }
         onChangeDateTo = { onChangeDateTo }
+        onChange={dateFromFilter}
       />
     </div>
   );
