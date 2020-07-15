@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function OptionsFilter(props){
+export default function OptionsFilter({ icon, options }){
 
-    const { icon } = props;
+    console.log(options)
     return (
         <div className="field">
             <div className="control has-icons-left">

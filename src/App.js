@@ -14,21 +14,30 @@ function App() {
     country: 'argentina',
     price: 15,
     rooms: 3
-} ;
+  } ;
+
+  const initialOptions = [
+    {value : undefined, name : "Cualquier tamaño"},
+    {value : 10, name : "Hotel pequeño"},
+    {value : 20, name : "Hotel mediano"},
+    {value : 30, name : "Hotel grante"}
+  ];
 
   const [ filter , setFilters ] = useState(initialValuesFilter);
 
-  
+  const [option, setOption] = useState(initialOptions);
 
-  const dateFromFilter = ()=> {
+
+
+  // const dateFromFilter = ()=> {
     
-    const newDateFormat = filter.dateFrom.toISOString().split('T')[0];
+  //   const newDateFormat = filter.dateFrom.toISOString().split('T')[0];
 
-    return newDateFormat;
+  //   return newDateFormat;
 
-  }
+  // }
 
-  dateFromFilter();
+  
   // da formato natural a initialValuesFilter.dateFrom para mostrar en Hero
   const dateFromFormat = ()=>{
 
@@ -117,10 +126,12 @@ function App() {
         to={dateToFormat()}
         conditionalfilters={handleShowConditionalFilters()}
       />
-      <FilterNav        
+      <FilterNav   
+        dateFromFilterValue = {filter.dateFrom}
+        dateToFilterValue = {filter.dateTo}    
         onChangeDateFrom={ onChangeDateFrom }
         onChangeDateTo = { onChangeDateTo }
-        onChange={dateFromFilter}
+        options = {option}
       />
     </div>
   );
