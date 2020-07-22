@@ -1,26 +1,21 @@
-import React from 'react';
+import React from 'react' ;
 
-
-export default function DateFilter ( { icon, onChangeDate, dateFilterValue } ) {
-      
-
-    
+export default function DateFilter( { icon, onChangeDate, dateFilterValue } ) {
     return (
         <div className="field">
             <div className="control has-icons-left">
-                <input 
+                <input
                     className="input"
                     type="date"
-                    onChange={onChangeDate}
-                    value={dateFilterValue}
+                    onChange={ onChangeDate }
+                    value={ dateFilterValue }
                 />
-                
+
                 <span className="icon is-small is-left">
-                    <i className={icon}/>
+                    <i className={ icon } />
                 </span>
             </div>
         </div>
 
-    );
-
+    ) ;
 }

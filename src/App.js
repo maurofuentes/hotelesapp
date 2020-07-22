@@ -5,6 +5,7 @@ import 'react-bulma-components/dist/react-bulma-components.min.css';
 import { useState } from 'react';
 import { data } from './data';
 import FilterNav from './components/FilterNav';
+import Hotel from './components/Hotel';
 
 function App() {
 
@@ -16,32 +17,42 @@ function App() {
     rooms: 3
   } ;
 
-  const initialOptions = [
+  const initialValuesCountry = [
+    {value : undefined, name : "Todos los paises"},
+    {value : "arg", name : "Argentina"},
+    {value : "bra", name : "Brasil"},
+    {value : "chi", name : "Chile"},
+    {value : "uru", name : "Uruguay"}
+  ];
+
+  const initialValuesPrice = [
+    {value : undefined, name : "Cualquier precio"},
+    {value : 1, name : "$"},
+    {value : 2, name : "$$"},
+    {value : 3, name : "$$$"},
+    {value : 4, name : "$$$$"}
+  ];
+
+  const initialValuesSize = [
     {value : undefined, name : "Cualquier tamaño"},
     {value : 10, name : "Hotel pequeño"},
     {value : 20, name : "Hotel mediano"},
-    {value : 30, name : "Hotel grante"}
+    {value : 30, name : "Hotel grande"}
   ];
 
   const [ filter , setFilters ] = useState(initialValuesFilter);
 
-  const [option, setOption] = useState(initialOptions);
+  const [size, setSize] = useState(initialValuesSize);
 
+  const [country, setCountry] = useState(initialValuesCountry);
 
-
-  // const dateFromFilter = ()=> {
-    
-  //   const newDateFormat = filter.dateFrom.toISOString().split('T')[0];
-
-  //   return newDateFormat;
-
-  // }
+  const [price, setPrice] = useState(initialValuesPrice);
 
   
   // da formato natural a initialValuesFilter.dateFrom para mostrar en Hero
   const dateFromFormat = ()=>{
 
-    let options = {
+    const options = {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -55,7 +66,7 @@ function App() {
   // da formato natural a initialValuesFilter.dateTo para mostrar en Hero
   const dateToFormat = ()=>{
 
-    let options = {
+    const options = {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -119,6 +130,27 @@ function App() {
     
   }
   
+  //<---------Hoteles--------->
+  
+  const [hotelsData, setHotelsData] = useState(data.hotelsData)
+
+  const hotelsList = hotelsData.map(
+    hotel => 
+    <article class="column is-one-third">
+      <Hotel
+        name = {hotel.name}
+        photo = {hotel.photo}
+        description = {hotel.description}
+        from = {hotel.availabilityFrom}
+        to = {hotel.availabilityTo}
+        city = {hotel.city}
+        country = {hotel.country}
+        price = {hotel.price}
+        rooms = {hotel.rooms}
+      />            
+    </article>
+  )
+
   return (
     <div>
       <Hero
@@ -131,8 +163,22 @@ function App() {
         dateToFilterValue = {filter.dateTo}    
         onChangeDateFrom={ onChangeDateFrom }
         onChangeDateTo = { onChangeDateTo }
-        options = {option}
+        countries = { country }
+        prices = { price }
+        sizes = {size}
       />
+
+      <section className="section" style={ {marginTop: '1em'} }>
+
+      </section>
+      <div class="container">
+        <div class="columns is-multiline">
+          {hotelsList}
+        </div>
+        
+      </div>
+      
+
     </div>
   );
 }
