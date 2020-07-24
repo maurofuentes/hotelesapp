@@ -3,7 +3,7 @@ import DateFilter  from '../components/DateFilter';
 import OptionsFilter from '../components/OptionsFilter';
 import moment from 'moment';
 
-export default function FilterNav ( { onChangeDateFrom, onChangeDateTo, dateFromFilterValue, dateToFilterValue, sizes, countries, prices }){
+export default function FilterNav ( { handleChangeFilter, onChangeDateFrom, onChangeDateTo, dateFromFilterValue, dateToFilterValue, sizes, countries, prices }){
 
   const dateFromFilter = ()=> {
 
@@ -11,10 +11,10 @@ export default function FilterNav ( { onChangeDateFrom, onChangeDateTo, dateFrom
 
     const newDateFormat = moment(dateFromFilterValue).format('YYYY-MM-DD');        
     
-    const dateString = newDateFormat.toString();
+    // const dateString = newDateFormat.toString();
 
     
-    return dateString;
+    return newDateFormat;
 
   }
 
@@ -24,10 +24,10 @@ export default function FilterNav ( { onChangeDateFrom, onChangeDateTo, dateFrom
 
     const newDateFormat = moment(dateToFilterValue).format('YYYY-MM-DD');        
     
-    const dateString = newDateFormat.toString();
+    // const dateString = newDateFormat.toString();
 
     
-    return dateString;
+    return newDateFormat;
 
   }
 
@@ -43,33 +43,41 @@ export default function FilterNav ( { onChangeDateFrom, onChangeDateTo, dateFrom
           <div className="column">
             <DateFilter
               icon="fas fa-sign-in-alt"
-              onChangeDate={ onChangeDateFrom }
+              name = "dateFrom"
+              handleChangeFilter={ handleChangeFilter }
               dateFilterValue = {dateFromFilter()}
             />  
           </div>
           <div className="column">
             <DateFilter
               icon="fas fa-sign-out-alt"
-              onChangeDate= { onChangeDateTo }
+              name = "dateTo"
+              handleChangeFilter= { handleChangeFilter }
               dateFilterValue = { dateToFilter() }
             />
           </div>
           <div className="column">
             <OptionsFilter
               icon="fas fa-globe"
+              name = "country"
               options = {hotelCountry}
+              handleChangeFilter= { handleChangeFilter }
             />
           </div>
           <div className = "column">
             <OptionsFilter
               icon = "fas fa-dollar-sign"
+              name = "price"
               options = {hotelPrice}
+              handleChangeFilter= { handleChangeFilter }
             />
           </div>
           <div className="column">
             <OptionsFilter
               icon = "fas fa-bed"
+              name = "rooms"
               options = {hotelSize}
+              handleChangeFilter= { handleChangeFilter }
             />
           </div>
       </div>

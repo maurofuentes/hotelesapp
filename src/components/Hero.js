@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Hero({ from, to, conditionalfilters}){
+export default function Hero({ from, to, conditionalfilters, countries, prices, sizes}){
 
     
 

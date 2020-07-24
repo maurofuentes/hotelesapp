@@ -6,23 +6,24 @@ import { useState } from 'react';
 import { data } from './data';
 import FilterNav from './components/FilterNav';
 import Hotel from './components/Hotel';
+import moment from 'moment';
 
 function App() {
 
   const initialValuesFilter = {
     dateFrom: data.today,
     dateTo: new Date( data.today.valueOf() + 86400000 ),
-    country: 'argentina',
-    price: 15,
-    rooms: 3
+    country: undefined,
+    price: undefined,
+    rooms: undefined
   } ;
 
   const initialValuesCountry = [
     {value : undefined, name : "Todos los paises"},
-    {value : "arg", name : "Argentina"},
-    {value : "bra", name : "Brasil"},
-    {value : "chi", name : "Chile"},
-    {value : "uru", name : "Uruguay"}
+    {value : "Argentina", name : "Argentina"},
+    {value : "Brasil", name : "Brasil"},
+    {value : "Chile", name : "Chile"},
+    {value : "Uruguay", name : "Uruguay"}
   ];
 
   const initialValuesPrice = [
@@ -42,11 +43,11 @@ function App() {
 
   const [ filter , setFilters ] = useState(initialValuesFilter);
 
-  const [size, setSize] = useState(initialValuesSize);
+  // const [size, setSize] = useState(initialValuesFilter);
 
-  const [country, setCountry] = useState(initialValuesCountry);
+  // const [country, setCountry] = useState(initialValuesFilter);
 
-  const [price, setPrice] = useState(initialValuesPrice);
+  // const [price, setPrice] = useState(initialValuesFilter);
 
   
   // da formato natural a initialValuesFilter.dateFrom para mostrar en Hero
@@ -80,55 +81,70 @@ function App() {
   //maneja la vista condicional de los filtros country, price y rooms
   const handleShowConditionalFilters = () => {    
 
-    let country, price, rooms;    
+    const country = (filter.country !== undefined) ? `en ${filter.country}` : "";
 
-    (initialValuesFilter.country !== undefined) ? country = `en ${initialValuesFilter.country}` : country = "";
+    const price = (filter.price !== undefined) ? ` a ${filter.price} pesos` : "";    
 
-    (initialValuesFilter.price !== undefined) ? price = ` a ${initialValuesFilter.price} pesos` : price = "";    
-
-    (initialValuesFilter.rooms !== undefined) ? rooms = ` de hasta ${initialValuesFilter.rooms} habitaciones` : rooms = "";
+    const rooms = (filter.rooms !== undefined) ? ` de hasta ${filter.rooms} habitaciones` : "";
     
     return country + price + rooms;
   }
 
-  const onChangeDateHero = (e)=> {
-    const newDateFrom = e.target.value;
-    setFilters({
-      ...filter,
-      dateFrom : newDateFrom
-    }); 
-  }
+  // const onChangeDateHero = (e)=> {
+  //   const newDateFrom = e.target.value;
+  //   setFilters({
+  //     ...filter,
+  //     dateFrom : newDateFrom
+  //   }); 
+  // }
 
   //metodo para manejar el DateFilter
-  const onChangeDateFrom = (e) => {
-    let selectedDate = e.target.value;  
+  // const onChangeDateFrom = (e) => {
+  //   let selectedDate = e.target.value;  
     
-    const dateFormat = selectedDate.replace(/-/gi,',');
+  //   const dateFormat = selectedDate.replace(/-/gi,',');
     
     
-    const newDateFrom = new Date(dateFormat);
+  //   const newDateFrom = new Date(dateFormat);
     
-    setFilters({
-      ...filter,
-      dateFrom : newDateFrom
-    }); 
+  //   setFilters({
+  //     ...filter,
+  //     dateFrom : newDateFrom
+  //   }); 
     
-  }
+  // }
  
-  const onChangeDateTo = (e) => {
-    let selectedDate = e.target.value;  
+  // const onChangeDateTo = (e) => {
+  //   let selectedDate = e.target.value;  
     
-    const dateFormat = selectedDate.replace(/-/gi,',');
+  //   const dateFormat = selectedDate.replace(/-/gi,',');
     
     
-    const newDateTo = new Date(dateFormat);
+  //   const newDateTo = new Date(dateFormat);
     
-    setFilters({
+  //   setFilters({
+  //     ...filter,
+  //     dateTo : newDateTo
+  //   }); 
+    
+  // }
+
+  const handleChangeFilter = ( e ) => {
+    console.log(e.target);
+    
+    const name = e.target.name ;
+    
+    const value = e.target.type === 'date' ? new Date( e.target.value) : e.target.value ;
+    
+    setFilters(
+      {
       ...filter,
-      dateTo : newDateTo
-    }); 
+      [name]: value
+      }
+    ) ;
+
+  } ;
     
-  }
   
   //<---------Hoteles--------->
   
@@ -154,18 +170,22 @@ function App() {
   return (
     <div>
       <Hero
-        from={dateFromFormat()}
-        to={dateToFormat()}
-        conditionalfilters={handleShowConditionalFilters()}
+        from={ dateFromFormat() }
+        to={ dateToFormat() }
+        conditionalfilters={ handleShowConditionalFilters() }
+        countries = { filter.country }
+        prices = { filter.price }
+        sizes = { filter.rooms }
       />
       <FilterNav   
-        dateFromFilterValue = {filter.dateFrom}
-        dateToFilterValue = {filter.dateTo}    
-        onChangeDateFrom={ onChangeDateFrom }
-        onChangeDateTo = { onChangeDateTo }
-        countries = { country }
-        prices = { price }
-        sizes = {size}
+        dateFromFilterValue = { filter.dateFrom }
+        dateToFilterValue = { filter.dateTo } 
+        handleChangeFilter = { handleChangeFilter }   
+        // onChangeDateFrom={ onChangeDateFrom }
+        // onChangeDateTo = { onChangeDateTo }
+        countries = { initialValuesCountry }
+        prices = { initialValuesPrice }
+        sizes = { initialValuesSize }
       />
 
       <section className="section" style={ {marginTop: '1em'} }>
