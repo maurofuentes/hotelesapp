@@ -6,13 +6,15 @@ import { useState } from 'react';
 import { data } from './data';
 import FilterNav from './components/FilterNav';
 import Hotel from './components/Hotel';
-import moment from 'moment';
+// import moment from 'moment';
+import moment from 'moment-with-locales-es6'
+import HotelsList from './components/HotelsList';
 
 function App() {
-
+  moment.locale('es');
   const initialValuesFilter = {
-    dateFrom: data.today,
-    dateTo: new Date( data.today.valueOf() + 86400000 ),
+    dateFrom: moment(data.today),
+    dateTo: moment(new Date( data.today.valueOf() + 86400000 )),
     country: undefined,
     price: undefined,
     rooms: undefined
@@ -53,29 +55,42 @@ function App() {
   // da formato natural a initialValuesFilter.dateFrom para mostrar en Hero
   const dateFromFormat = ()=>{
 
-    const options = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    };
+    // const options = {
+    //   weekday: 'long',
+    //   year: 'numeric',
+    //   month: 'long',
+    //   day: 'numeric'
+    // };
     
-    return filter.dateFrom.toLocaleDateString('es-AR', options);
+    // return filter.dateFrom.toLocaleDateString('es-AR', options);
+
+    moment.locale('es');
+
+    const fechaInicial = moment( filter.dateFrom ).format('LL');
+
+
+    return fechaInicial;
 
   }
 
   // da formato natural a initialValuesFilter.dateTo para mostrar en Hero
   const dateToFormat = ()=>{
 
-    const options = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    };
+    // const options = {
+    //   weekday: 'long',
+    //   year: 'numeric',
+    //   month: 'long',
+    //   day: 'numeric'
+    // };
+    
+    // return filter.dateTo.toLocaleDateString('es-AR', options);
 
-    return filter.dateTo.toLocaleDateString('es-AR', options);
+    moment.locale('es');
 
+    const fechaFinal = moment( filter.dateTo ).format('LL');
+
+
+    return fechaFinal;
   }
 
   //maneja la vista condicional de los filtros country, price y rooms
@@ -87,7 +102,13 @@ function App() {
 
     const rooms = (filter.rooms !== undefined) ? ` de hasta ${filter.rooms} habitaciones` : "";
     
-    return country + price + rooms;
+    const countryToShow = (country !== "en Todos los paises") ? country : "";
+
+    const priceToShow = ( price !== " a Cualquier precio pesos") ? price : "";
+
+    const roomsToShow = ( rooms !== " de hasta Cualquier tamaño habitaciones") ? rooms : "";
+
+    return countryToShow + priceToShow + roomsToShow;
   }
 
   // const onChangeDateHero = (e)=> {
@@ -130,11 +151,13 @@ function App() {
   // }
 
   const handleChangeFilter = ( e ) => {
-    console.log(e.target);
+    console.log(e.target.value);
+
+    moment.locale('es');
     
     const name = e.target.name ;
     
-    const value = e.target.type === 'date' ? new Date( e.target.value) : e.target.value ;
+    const value = e.target.type === 'date' ? (new Date( e.target.value)).valueOf() + 86400000 : e.target.value ;
     
     setFilters(
       {
@@ -146,36 +169,12 @@ function App() {
   } ;
     
   
-  //<---------Hoteles--------->
-  
-  const [hotelsData, setHotelsData] = useState(data.hotelsData)
-
-  const hotelsList = hotelsData.map(
-    hotel => 
-    <article class="column is-one-third">
-      <Hotel
-        name = {hotel.name}
-        photo = {hotel.photo}
-        description = {hotel.description}
-        from = {hotel.availabilityFrom}
-        to = {hotel.availabilityTo}
-        city = {hotel.city}
-        country = {hotel.country}
-        price = {hotel.price}
-        rooms = {hotel.rooms}
-      />            
-    </article>
-  )
-
   return (
     <div>
       <Hero
         from={ dateFromFormat() }
         to={ dateToFormat() }
         conditionalfilters={ handleShowConditionalFilters() }
-        countries = { filter.country }
-        prices = { filter.price }
-        sizes = { filter.rooms }
       />
       <FilterNav   
         dateFromFilterValue = { filter.dateFrom }
@@ -187,18 +186,7 @@ function App() {
         prices = { initialValuesPrice }
         sizes = { initialValuesSize }
       />
-
-      <section className="section" style={ {marginTop: '1em'} }>
-
-      </section>
-      <div class="container">
-        <div class="columns is-multiline">
-          {hotelsList}
-        </div>
-        
-      </div>
-      
-
+      <HotelsList/>
     </div>
   );
 }

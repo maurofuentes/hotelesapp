@@ -40,40 +40,40 @@ export default function FilterNav ( { handleChangeFilter, onChangeDateFrom, onCh
   return (
       <div className="has-background-info">
         <div className="container columns is-desktop">
-          <div className="column">
-            <DateFilter
-              icon="fas fa-sign-in-alt"
+          <div key = "dateFrom" className="column">
+            <DateFilter              
+              icon ="fas fa-sign-in-alt"
               name = "dateFrom"
-              handleChangeFilter={ handleChangeFilter }
+              handleChangeFilter ={ handleChangeFilter }
               dateFilterValue = {dateFromFilter()}
             />  
           </div>
-          <div className="column">
-            <DateFilter
+          <div key = "dateTo" className="column">
+            <DateFilter              
               icon="fas fa-sign-out-alt"
               name = "dateTo"
               handleChangeFilter= { handleChangeFilter }
               dateFilterValue = { dateToFilter() }
             />
           </div>
-          <div className="column">
-            <OptionsFilter
+          <div key = "country" className="column">
+            <OptionsFilter              
               icon="fas fa-globe"
               name = "country"
               options = {hotelCountry}
               handleChangeFilter= { handleChangeFilter }
             />
           </div>
-          <div className = "column">
-            <OptionsFilter
+          <div key = "price" className = "column">
+            <OptionsFilter              
               icon = "fas fa-dollar-sign"
               name = "price"
               options = {hotelPrice}
               handleChangeFilter= { handleChangeFilter }
             />
           </div>
-          <div className="column">
-            <OptionsFilter
+          <div key = "rooms" className="column">
+            <OptionsFilter              
               icon = "fas fa-bed"
               name = "rooms"
               options = {hotelSize}
