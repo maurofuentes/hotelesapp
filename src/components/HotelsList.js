@@ -1,17 +1,12 @@
-import React from 'react';
-import { useState } from 'react';
+import React,  { useState, useEffect } from 'react';
 import { data } from '../data';
 import Hotel from './Hotel';
 
-export default function HotelsList(){
+export default function HotelsList( { hotels }){
 
     //<---------Hoteles--------->
-  
-const [hotelsData, setHotelsData] = useState(data.hotelsData);
 
-
-
-    const hotelsList = hotelsData.map(
+    const hotelsList = hotels.map(
         hotel => 
         <article key={hotel.slug} class="column is-one-third">
             <Hotel            

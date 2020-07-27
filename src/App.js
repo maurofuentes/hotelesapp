@@ -1,17 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Hero from './components/Hero';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
-import { useState } from 'react';
 import { data } from './data';
 import FilterNav from './components/FilterNav';
-import Hotel from './components/Hotel';
-// import moment from 'moment';
 import moment from 'moment-with-locales-es6'
 import HotelsList from './components/HotelsList';
 
 function App() {
-  moment.locale('es');
+  
   const initialValuesFilter = {
     dateFrom: moment(data.today),
     dateTo: moment(new Date( data.today.valueOf() + 86400000 )),
@@ -19,6 +16,23 @@ function App() {
     price: undefined,
     rooms: undefined
   } ;
+  
+  const [ filter , setFilters ] = useState(initialValuesFilter);
+
+  const { hotelsData } = data;
+
+  let [ hotels, setHotels ] = useState( hotelsData );
+
+  useEffect(() => {
+    
+    const filtrado = hotels.filter( hotel => hotel.country === filter.country );
+
+    console.log(filtrado);
+    
+    // setHotels(filtrado) ;
+    
+
+  }, [filter])
 
   const initialValuesCountry = [
     {value : undefined, name : "Todos los paises"},
@@ -43,31 +57,12 @@ function App() {
     {value : 30, name : "Hotel grande"}
   ];
 
-  const [ filter , setFilters ] = useState(initialValuesFilter);
-
-  // const [size, setSize] = useState(initialValuesFilter);
-
-  // const [country, setCountry] = useState(initialValuesFilter);
-
-  // const [price, setPrice] = useState(initialValuesFilter);
-
-  
   // da formato natural a initialValuesFilter.dateFrom para mostrar en Hero
   const dateFromFormat = ()=>{
-
-    // const options = {
-    //   weekday: 'long',
-    //   year: 'numeric',
-    //   month: 'long',
-    //   day: 'numeric'
-    // };
-    
-    // return filter.dateFrom.toLocaleDateString('es-AR', options);
 
     moment.locale('es');
 
     const fechaInicial = moment( filter.dateFrom ).format('LL');
-
 
     return fechaInicial;
 
@@ -76,19 +71,9 @@ function App() {
   // da formato natural a initialValuesFilter.dateTo para mostrar en Hero
   const dateToFormat = ()=>{
 
-    // const options = {
-    //   weekday: 'long',
-    //   year: 'numeric',
-    //   month: 'long',
-    //   day: 'numeric'
-    // };
-    
-    // return filter.dateTo.toLocaleDateString('es-AR', options);
-
     moment.locale('es');
 
     const fechaFinal = moment( filter.dateTo ).format('LL');
-
 
     return fechaFinal;
   }
@@ -111,63 +96,22 @@ function App() {
     return countryToShow + priceToShow + roomsToShow;
   }
 
-  // const onChangeDateHero = (e)=> {
-  //   const newDateFrom = e.target.value;
-  //   setFilters({
-  //     ...filter,
-  //     dateFrom : newDateFrom
-  //   }); 
-  // }
-
-  //metodo para manejar el DateFilter
-  // const onChangeDateFrom = (e) => {
-  //   let selectedDate = e.target.value;  
-    
-  //   const dateFormat = selectedDate.replace(/-/gi,',');
-    
-    
-  //   const newDateFrom = new Date(dateFormat);
-    
-  //   setFilters({
-  //     ...filter,
-  //     dateFrom : newDateFrom
-  //   }); 
-    
-  // }
- 
-  // const onChangeDateTo = (e) => {
-  //   let selectedDate = e.target.value;  
-    
-  //   const dateFormat = selectedDate.replace(/-/gi,',');
-    
-    
-  //   const newDateTo = new Date(dateFormat);
-    
-  //   setFilters({
-  //     ...filter,
-  //     dateTo : newDateTo
-  //   }); 
-    
-  // }
-
-  const handleChangeFilter = ( e ) => {
-    console.log(e.target.value);
+  const handleChangeFilter = ( e ) => {    
 
     moment.locale('es');
     
     const name = e.target.name ;
     
     const value = e.target.type === 'date' ? (new Date( e.target.value)).valueOf() + 86400000 : e.target.value ;
-    
+
     setFilters(
       {
-      ...filter,
-      [name]: value
+        ...filter,
+        [name]: value
       }
     ) ;
 
-  } ;
-    
+  } ;    
   
   return (
     <div>
@@ -180,13 +124,13 @@ function App() {
         dateFromFilterValue = { filter.dateFrom }
         dateToFilterValue = { filter.dateTo } 
         handleChangeFilter = { handleChangeFilter }   
-        // onChangeDateFrom={ onChangeDateFrom }
-        // onChangeDateTo = { onChangeDateTo }
         countries = { initialValuesCountry }
         prices = { initialValuesPrice }
         sizes = { initialValuesSize }
       />
-      <HotelsList/>
+      <HotelsList
+        hotels = { hotels }
+      />
     </div>
   );
 }
