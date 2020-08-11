@@ -6,6 +6,7 @@ import { data } from './data';
 import FilterNav from './components/FilterNav';
 import moment from 'moment-with-locales-es6'
 import HotelsList from './components/HotelsList';
+import Hotel from './components/Hotel';
 
 function App() {
   
@@ -21,19 +22,73 @@ function App() {
 
   const { hotelsData } = data;
 
-  let [ hotels, setHotels ] = useState( hotelsData );
+  const [ hotels, setHotels ] = useState( hotelsData );
+
+  
 
   useEffect(() => {
-    
-    const filtrado = hotels.filter( hotel => hotel.country === filter.country );
 
-    console.log(filtrado);
+    let filteredHotels = hotelsData ;
+
+        filteredHotels = hotelsData.filter( hotel => {
+            return (
+                moment( hotel.availabilityFrom ).isSameOrAfter( filter.dateFrom ) &&
+                moment( hotel.availabilityTo ).isSameOrAfter( filter.dateTo )
+            ) ; 
+        } ) ;
+
+        if ( filter.country !== undefined && filter.country !== 'en Todos los paises' ) {
+          filteredHotels = hotelsData.filter( hotel => hotel.country === filter.country ) ;
+        }
+        
+        if ( filter.price !== undefined && filter.price !== ' a Cualquier precio pesos' ) {
+            filteredHotels = filteredHotels.filter( hotel => hotel.price === parseInt( filter.price ) ) ;
+        }
+
+        if ( filter.rooms !== undefined &&  filter.rooms !== ' de hasta Cualquier tamaño habitaciones' ) {
+
+            switch ( filter.rooms ) {
+                case '10':
+                    filteredHotels = filteredHotels.filter( hotel => hotel.rooms <= 10 ) ;
+                    break ;
+            
+                case '20':
+                    filteredHotels = filteredHotels.filter( hotel => hotel.rooms > 10 && hotel.rooms <= 20 ) ;
+                    break ;
+            
+                case '30':
+                    filteredHotels = filteredHotels.filter( hotel => hotel.rooms > 20 ) ;
+                    break ;
+                default:
+                    break ;
+            }
+        }
+
+        setHotels( filteredHotels ) ;
     
-    // setHotels(filtrado) ;
-    
+    // const  filteredHotels =  hotelsData.filter(hotel =>
+    //   {        
+    //     return 
+    //     ( 
+    //       moment(hotel.availabilityFrom).isSameOrBefore(filter.dateFrom) &&
+    //       moment(hotel.availabilityTo).isSameOrBefore(filter.dateTo)
+    //     )        
+    //   } 
+    // );
+
+    // setHotels(filteredHotels );
+
+    // if(filter.country){
+        
+    //   const filtrado = hotelsData.filter( hotel => hotel.country === filter.country );    
+      
+    //   setHotels(filtrado) ;
+
+    //   console.log(filtrado);
+    // }
 
   }, [filter])
-
+  
   const initialValuesCountry = [
     {value : undefined, name : "Todos los paises"},
     {value : "Argentina", name : "Argentina"},
@@ -102,7 +157,7 @@ function App() {
     
     const name = e.target.name ;
     
-    const value = e.target.type === 'date' ? (new Date( e.target.value)).valueOf() + 86400000 : e.target.value ;
+    const value = e.target.type === 'date' ? moment( e.target.value): e.target.value ;
 
     setFilters(
       {

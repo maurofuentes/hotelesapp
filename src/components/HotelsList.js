@@ -10,15 +10,15 @@ export default function HotelsList( { hotels }){
         hotel => 
         <article key={hotel.slug} class="column is-one-third">
             <Hotel            
-            name = {hotel.name}
-            photo = {hotel.photo}
-            description = {hotel.description}
-            from = {hotel.availabilityFrom}
-            to = {hotel.availabilityTo}
-            city = {hotel.city}
-            country = {hotel.country}
-            price = {hotel.price}
-            rooms = {hotel.rooms}
+                name = {hotel.name}
+                photo = {hotel.photo}
+                description = {hotel.description}
+                from = {hotel.availabilityFrom}
+                to = {hotel.availabilityTo}
+                city = {hotel.city}
+                country = {hotel.country}
+                price = {hotel.price}
+                rooms = {hotel.rooms}
             />            
         </article>
     );
