@@ -1,9 +1,15 @@
 import React from 'react';
 
-export default function Price(){
+export default function Price( {icons} ){
 
+    
+   const iconMaker =  icons.map( i =>  <i className = { i.name } style= { i.style }  ></i>  );
+
+   console.log(iconMaker);
 
     return (
-        <h1>precio</h1>
+        <React.Fragment>
+            { iconMaker }
+        </React.Fragment>      
     );
 }

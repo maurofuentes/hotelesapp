@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default function Hotel ( { name, photo, description, from, to, city, country, price, rooms} ) {
+export default function Hotel ( { name, photo, description, from, to, city, country, price, rooms, children} ) {
 
     return (
         <div className="card">
@@ -33,12 +33,15 @@ export default function Hotel ( { name, photo, description, from, to, city, coun
                     <div className="control">
                         <div className="tags">
                             <span className="tag is-medium is-info">
-                            <i className="fas fa-dollar-sign" style={{margin: '0 .125em'}}></i>
+
+                                {children}
+
+                            {/* <i className="fas fa-dollar-sign" style={{margin: '0 .125em'}}></i>
                             <i className="fas fa-dollar-sign" style={{margin: '0 .125em'}}></i>
                             <i className="fas fa-dollar-sign" style={{margin: '0 .125em',
                             opacity: '.25'}}></i>
                             <i className="fas fa-dollar-sign" style={{margin: '0 .125em',
-                            opacity: '.25'}}></i>
+                            opacity: '.25'}}></i> */}
                             </span>
                         </div>
                     </div>
@@ -47,7 +50,7 @@ export default function Hotel ( { name, photo, description, from, to, city, coun
             <div className="card-footer">
                 <a href="javascript:alert('No implementamos esto aún :(')"
                 className="card-footer-item has-background-primary has-text-white
-                has-text-weight-bold">Reservar</a>
+                has-text-weight-bold">Reservar</a>                
             </div>
         </div>
 

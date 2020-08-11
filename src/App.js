@@ -32,20 +32,20 @@ function App() {
 
         filteredHotels = hotelsData.filter( hotel => {
             return (
-                moment( hotel.availabilityFrom ).isSameOrAfter( filter.dateFrom ) &&
+                moment( hotel.availabilityFrom ).isSameOrBefore( filter.dateFrom ) &&
                 moment( hotel.availabilityTo ).isSameOrAfter( filter.dateTo )
             ) ; 
         } ) ;
 
-        if ( filter.country !== undefined && filter.country !== 'en Todos los paises' ) {
+        if ( filter.country && filter.country !== 'Todos los paises' ) {
           filteredHotels = hotelsData.filter( hotel => hotel.country === filter.country ) ;
         }
         
-        if ( filter.price !== undefined && filter.price !== ' a Cualquier precio pesos' ) {
+        if ( filter.price && filter.price !== 'Cualquier precio' ) {
             filteredHotels = filteredHotels.filter( hotel => hotel.price === parseInt( filter.price ) ) ;
         }
 
-        if ( filter.rooms !== undefined &&  filter.rooms !== ' de hasta Cualquier tamaño habitaciones' ) {
+        if ( filter.rooms &&  filter.rooms !== 'Cualquier tamaño' ) {
 
             switch ( filter.rooms ) {
                 case '10':

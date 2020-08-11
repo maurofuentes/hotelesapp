@@ -1,9 +1,11 @@
 import React,  { useState, useEffect } from 'react';
 import { data } from '../data';
 import Hotel from './Hotel';
+import Price from './Price';
 
 export default function HotelsList( { hotels }){
 
+    
     //<---------Hoteles--------->
 
     const hotelsList = hotels.map(
@@ -19,7 +21,15 @@ export default function HotelsList( { hotels }){
                 country = {hotel.country}
                 price = {hotel.price}
                 rooms = {hotel.rooms}
-            />            
+            >
+               <Price
+                    icons = 
+                    { Array.from( { length: 4 } )
+                        .fill( { name : "fas fa-dollar-sign", style : {margin: '0 .125em'} }, 0, hotel.price )
+                        .fill( { name : "fas fa-dollar-sign", style : {margin: '0 .125em', opacity: '.25'}}, hotel.price, 4 )      
+                    }
+               />
+            </Hotel>
         </article>
     );
 
