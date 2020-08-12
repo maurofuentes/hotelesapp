@@ -29,6 +29,8 @@ function App() {
   useEffect(() => {
 
     let filteredHotels = hotelsData ;
+    
+    if (moment(filter.dateFrom).isSameOrBefore(filter.dateTo)){
 
       filteredHotels = hotelsData.filter( hotel => {
           return (
@@ -65,7 +67,11 @@ function App() {
         }
       }
 
-    setHotels( filteredHotels ) ;
+      setHotels( filteredHotels ) ;
+
+    } else {
+      alert("Invalid date range!");
+    }
   }, [filter])
   
   const initialValuesCountry = [
