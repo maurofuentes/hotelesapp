@@ -64,29 +64,7 @@ function App() {
             }
         }
 
-        setHotels( filteredHotels ) ;
-    
-    // const  filteredHotels =  hotelsData.filter(hotel =>
-    //   {        
-    //     return 
-    //     ( 
-    //       moment(hotel.availabilityFrom).isSameOrBefore(filter.dateFrom) &&
-    //       moment(hotel.availabilityTo).isSameOrBefore(filter.dateTo)
-    //     )        
-    //   } 
-    // );
-
-    // setHotels(filteredHotels );
-
-    // if(filter.country){
-        
-    //   const filtrado = hotelsData.filter( hotel => hotel.country === filter.country );    
-      
-    //   setHotels(filtrado) ;
-
-    //   console.log(filtrado);
-    // }
-
+    setHotels( filteredHotels ) ;
   }, [filter])
   
   const initialValuesCountry = [
