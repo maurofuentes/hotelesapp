@@ -30,39 +30,40 @@ function App() {
 
     let filteredHotels = hotelsData ;
 
-        filteredHotels = hotelsData.filter( hotel => {
-            return (
-                moment( hotel.availabilityFrom ).isSameOrBefore( filter.dateFrom ) &&
-                moment( hotel.availabilityTo ).isSameOrAfter( filter.dateTo )
-            ) ; 
-        } ) ;
+      filteredHotels = hotelsData.filter( hotel => {
+          return (
+              moment( hotel.availabilityFrom ).isSameOrBefore( filter.dateFrom ) &&
+              moment( hotel.availabilityTo ).isSameOrAfter( filter.dateTo )
+          ) ; 
+      } ) ;
 
-        if ( filter.country && filter.country !== 'Todos los paises' ) {
-          filteredHotels = hotelsData.filter( hotel => hotel.country === filter.country ) ;
-        }
-        
-        if ( filter.price && filter.price !== 'Cualquier precio' ) {
-            filteredHotels = filteredHotels.filter( hotel => hotel.price === parseInt( filter.price ) ) ;
-        }
+      if ( filter.country && filter.country !== 'Todos los paises' ) {
+        filteredHotels = hotelsData.filter( hotel => hotel.country === filter.country ) ;
+      }
+      
+      if ( filter.price && filter.price !== 'Cualquier precio' ) {
+          filteredHotels = filteredHotels.filter( hotel => hotel.price === parseInt( filter.price ) ) ;
+      }
 
-        if ( filter.rooms &&  filter.rooms !== 'Cualquier tamaño' ) {
+      if ( filter.rooms &&  filter.rooms !== 'Cualquier tamaño' ) {
 
-            switch ( filter.rooms ) {
-                case '10':
-                    filteredHotels = filteredHotels.filter( hotel => hotel.rooms <= 10 ) ;
-                    break ;
-            
-                case '20':
-                    filteredHotels = filteredHotels.filter( hotel => hotel.rooms > 10 && hotel.rooms <= 20 ) ;
-                    break ;
-            
-                case '30':
-                    filteredHotels = filteredHotels.filter( hotel => hotel.rooms > 20 ) ;
-                    break ;
-                default:
-                    break ;
-            }
+        switch ( filter.rooms ) {
+          case '10':
+            filteredHotels = filteredHotels.filter( hotel => hotel.rooms <= 10 ) ;
+            break ;
+      
+          case '20':
+            filteredHotels = filteredHotels.filter( hotel => hotel.rooms > 10 && hotel.rooms <= 20 ) ;
+            break ;
+      
+          case '30':
+            filteredHotels = filteredHotels.filter( hotel => hotel.rooms > 20 ) ;
+            break ;
+
+          default:
+            break ;
         }
+      }
 
     setHotels( filteredHotels ) ;
   }, [filter])
